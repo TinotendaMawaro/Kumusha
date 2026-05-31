@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumusha Soccer Academy | Elite Training & Registration</title>
+    
+    <!-- Tailwind CSS for modern base layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for professional sport & interface icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Inter & Montserrat for high-performance athletic typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        athletic: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        kumushaRed: '#D61A1A',
+                        kumushaDark: '#990000',
+                        deepBlack: '#0d0d0d',
+                        cardGray: '#161616',
+                        accentGray: '#242424'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* CSS Animations & Custom Transitions */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0d0d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D61A1A;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #990000;
+        }
+
+        /* Paint Slash Effect matching Kumusha Jersey style */
+        .paint-slash-red {
+            background: linear-gradient(135deg, rgba(214, 26, 26, 0.15) 0%, transparent 100%);
+            position: relative;
+        }
+        
+        .paint-slash-red::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(45deg, rgba(214, 26, 26, 0.2) 0px, rgba(214, 26, 26, 0.2) 2px, transparent 2px, transparent 10px);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Dynamic background stroke simulation */
+        .jersey-stripe-accent {
+            position: relative;
+            overflow: hidden;
+        }
+        .jersey-stripe-accent::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, transparent 40%, rgba(214, 26, 26, 0.25) 41%, rgba(214, 26, 26, 0.25) 60%, transparent 61%);
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+
+        /* Micro-interactions & animations */
+        .hover-lift {
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(214, 26, 26, 0.25);
+            border-color: rgba(214, 26, 26, 0.4);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 12px rgba(214, 26, 26, 0.6);
+        }
+
+        /* Multi-step indicator line */
+        .step-progress-line {
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Shimmer effect for buttons */
+        @keyframes shimmer {
+            100% { transform: translateX(100%); }
+        }
+        .shimmer-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            animation: shimmer 2.5s infinite;
+        }
+
+        /* Active navigation styling */
+        .nav-active {
+            color: #D61A1A;
+            border-bottom: 2px solid #D61A1A;
+        }
+
+        /* Custom paint brush border */
+        .brush-border {
+            border-image: linear-gradient(to right, #D61A1A, transparent) 1;
+        }
+
+        /* Jersey Generator Preview styles */
+        .jersey-back-preview {
+            background-color: #f3f4f6;
+            background-image: linear-gradient(135deg, #ffffff 45%, #D61A1A 46%, #D61A1A 56%, #ffffff 57%);
+            background-size: 300px 300px;
+            background-position: center;
+        }
+
+        /* SCROLL REVEAL ANIMATIONS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform, opacity;
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform, opacity;
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform, opacity;
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform, opacity;
+        }
+
+        .reveal-visible {
+            opacity: 1 !important;
+            transform: translateY(0) translateX(0) scale(1) !important;
+        }
+
+        /* Animated page-switching cross-fade styles */
+        .section-fade {
+            animation: fadeInPage 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes fadeInPage {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-deepBlack text-gray-100 font-sans antialiased min-h-screen selection:bg-kumushaRed selection:text-white">
+
+    <!-- NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 bg-deepBlack/95 backdrop-blur-md border-b border-accentGray">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Identity with Official Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer group" onclick="navigateTo('home')">
+                    <div class="relative w-14 h-14 transform group-hover:scale-110 transition-transform duration-300">
+                        <img src="images/Approved%20logo.jpeg" alt="Kumusha Soccer Academy Official Logo" class="w-full h-full object-contain drop-shadow-lg">
+                    </div>
+                    <div class="hidden sm:block">
+                        <div class="flex items-baseline space-x-1">
+                            <span class="font-athletic font-extrabold text-xl tracking-wider text-white">KUMUSHA</span>
+                            <span class="text-xs text-kumushaRed font-bold tracking-widest">ACADEMY</span>
+                        </div>
+                        <p class="text-[8px] uppercase tracking-[0.15em] text-gray-400">Soccer Excellence</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Menu -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" onclick="navigateTo('home')" id="nav-home" class="nav-active text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Home Portal</a>
+                    <a href="#blog" onclick="navigateTo('blog')" id="nav-blog" class="text-gray-300 hover:text-kumushaRed text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Jersey Collection</a>
+                    <!-- <a href="#coach" onclick="navigateTo('coach')" id="nav-coach" class="text-gray-300 hover:text-kumushaRed text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Meet the Coach</a> -->
+                    <a href="#history" onclick="navigateTo('history')" id="nav-history" class="text-gray-300 hover:text-kumushaRed text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Our History</a>
+                    <!-- <a href="#moments" onclick="navigateTo('moments')" id="nav-moments" class="text-gray-300 hover:text-kumushaRed text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Moments</a> -->
+                    <a href="#about" onclick="navigateTo('about')" id="nav-about" class="text-gray-300 hover:text-kumushaRed text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Details & Schedule</a>
+                </nav>
+
+                <!-- Navigation Action Call -->
+                <div class="flex items-center space-x-4">
+                    <button onclick="navigateTo('register')" class="shimmer-btn bg-kumushaRed hover:bg-kumushaDark text-white px-5 py-2.5 rounded-lg font-athletic font-bold text-xs tracking-wider uppercase shadow-md shadow-kumushaRed/20 transition-all transform hover:scale-105">
+                        <i class="fa-solid fa-file-signature mr-2"></i>Register For July 1
+                    </button>
+                    <!-- Mobile Hamburger Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-gray-300 hover:text-white p-2">
+                        <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cardGray border-b border-accentGray py-4 px-6 space-y-4">
+            <a href="#home" onclick="navigateTo('home')" class="block text-gray-100 font-semibold uppercase tracking-wider py-1 hover:text-kumushaRed">Home Portal</a>
+            <a href="#blog" onclick="navigateTo('blog')" class="block text-gray-100 font-semibold uppercase tracking-wider py-1 hover:text-kumushaRed">Jersey Collection</a>
+            <a href="#coach" onclick="navigateTo('coach')" class="block text-gray-100 font-semibold uppercase tracking-wider py-1 hover:text-kumushaRed">Meet the Coach</a>
+            <a href="#history" onclick="navigateTo('history')" class="block text-gray-100 font-semibold uppercase tracking-wider py-1 hover:text-kumushaRed">Our History</a>
+            <a href="#moments" onclick="navigateTo('moments')" class="block text-gray-100 font-semibold uppercase tracking-wider py-1 hover:text-kumushaRed">Moments</a>
+            <a href="#about" onclick="navigateTo('about')" class="block text-gray-100 font-semibold uppercase tracking-wider py-1 hover:text-kumushaRed">Details & Schedule</a>
+        </div>
+    </header>
+
+    <!-- MAIN APP WRAPPER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ALERT NOTIFICATION BANNER (Replaces intrusive alerts) -->
+        <div id="custom-notification" class="hidden fixed bottom-6 right-6 z-50 max-w-sm bg-cardGray border-l-4 border-kumushaRed text-white p-4 rounded shadow-2xl flex items-start space-x-3 transform translate-y-10 opacity-0 transition-all duration-300">
+            <div class="bg-kumushaRed/20 p-2 rounded-full text-kumushaRed">
+                <i class="fa-solid fa-bell"></i>
+            </div>
+            <div class="flex-1">
+                <p id="notification-text" class="text-sm font-semibold"></p>
+            </div>
+            <button onclick="closeNotification()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!-- HERO BANNER SECTION -->
+        <section id="section-home" class="mb-16 block section-fade">
+            <div class="relative rounded-3xl overflow-hidden bg-cardGray border border-accentGray shadow-2xl reveal-scale reveal">
+                <!-- Decorative background elements simulating real soccer action atmosphere -->
+                <div class="absolute inset-0 opacity-20 pointer-events-none overflow-hidden">
+                    <div class="absolute -top-12 -left-12 w-96 h-96 bg-kumushaRed rounded-full filter blur-[120px]"></div>
+                    <div class="absolute bottom-0 right-0 w-80 h-80 bg-kumushaDark rounded-full filter blur-[100px]"></div>
+                </div>
+
+                <div class="relative grid grid-cols-1 lg:grid-cols-12 gap-8 p-8 sm:p-12 lg:p-16 items-center">
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="reveal-left reveal inline-flex items-center space-x-2 bg-kumushaRed/10 border border-kumushaRed/30 px-4 py-1.5 rounded-full text-kumushaRed">
+                            <span class="w-2.5 h-2.5 rounded-full bg-kumushaRed animate-pulse"></span>
+                            <span class="text-xs font-bold uppercase tracking-wider">Registration Now Live for July 1st Camp</span>
+                        </div>
+                        <h1 class="reveal-left reveal font-athletic font-black text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-white leading-tight">
+                            DEVELOPING <span class="text-kumushaRed text-glow animate-pulse">CHAMPIONS</span><br>ON & OFF THE PITCH
+                        </h1>
+                        <p class="reveal-left reveal text-gray-300 text-lg max-w-xl leading-relaxed">
+                            Welcome to the elite youth football academy founded in Harare. Rooted in professional standards, European training style strategies, and authentic grassroots African talent development.
+                        </p>
+                        
+                        <!-- Mini core pill stats -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4">
+                            <div class="reveal-scale reveal bg-accentGray/60 p-3 rounded-xl border border-accentGray text-center hover-lift">
+                                <p class="text-kumushaRed font-athletic font-black text-2xl">8 - 18</p>
+                                <p class="text-xs text-gray-400">Eligible Ages</p>
+                            </div>
+                            <div class="reveal-scale reveal bg-accentGray/60 p-3 rounded-xl border border-accentGray text-center hover-lift" style="transition-delay: 100ms;">
+                                <p class="text-white font-athletic font-black text-2xl">15:30</p>
+                                <p class="text-xs text-gray-400">Tue & Thur Sessions</p>
+                            </div>
+                            <div class="reveal-scale reveal bg-accentGray/60 p-3 rounded-xl border border-accentGray text-center hover-lift" style="transition-delay: 200ms;">
+                                <p class="text-white font-athletic font-black text-2xl">ALEX</p>
+                                <p class="text-xs text-gray-400">Sports Club Grounds</p>
+                            </div>
+                            <div class="reveal-scale reveal bg-accentGray/60 p-3 rounded-xl border border-accentGray text-center hover-lift" style="transition-delay: 300ms;">
+                                <p class="text-kumushaRed font-athletic font-black text-2xl">COACH</p>
+                                <p class="text-xs text-gray-400">Shingi Kawondera</p>
+                            </div>
+                        </div>
+
+                        <div class="reveal-left reveal flex flex-col sm:flex-row gap-4 pt-6">
+                            <button onclick="navigateTo('register')" class="shimmer-btn bg-kumushaRed hover:bg-kumushaDark text-white px-8 py-4 rounded-xl font-athletic font-bold text-sm tracking-wider uppercase flex items-center justify-center space-x-3 transition-transform transform hover:-translate-y-1 shadow-lg shadow-kumushaRed/20">
+                                <span>Get Registered Now</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button onclick="navigateTo('blog')" class="bg-accentGray hover:bg-zinc-800 text-white px-8 py-4 rounded-xl font-athletic font-bold text-sm tracking-wider uppercase border border-zinc-700 hover:border-zinc-500 transition-colors">
+                                View Jersey Collection
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Professional Academy Flyer Showcase -->
+                    <div class="lg:col-span-5 relative flex justify-center reveal-right reveal" style="transition-delay: 150ms;">
+                        <div class="relative w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl hover-lift group cursor-pointer">
+                            <div class="absolute inset-0 bg-gradient-to-br from-kumushaRed/20 to-transparent z-10 group-hover:from-kumushaRed/40 transition-all duration-300"></div>
+                            <img src="images/flier.png" alt="Kumusha Soccer Academy Official Flyer - Developing Champions On and Off The Pitch" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-deepBlack via-deepBlack/80 to-transparent p-4 z-20">
+                                <p class="text-xs text-gray-300 font-bold uppercase tracking-widest">Official Academy Promotional Flyer</p>
+                                <p class="text-white text-sm font-athletic font-bold mt-1">2026 Season Launch</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JERSEY SHOWCASE SECTION -->
+        <section id="section-blog" class="mb-16 hidden section-fade">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-accentGray reveal">
+                <div>
+                    <span class="text-kumushaRed text-xs font-bold uppercase tracking-widest">OFFICIAL GEAR</span>
+                    <h2 class="font-athletic font-black text-3xl sm:text-4xl uppercase text-white mt-1">KUMUSHA JERSEY COLLECTION</h2>
+                    <p class="text-gray-400 text-sm mt-1">Explore our official match jerseys and training gear designed for elite performance.</p>
+                </div>
+                
+                <!-- Jersey Filter Navigation Controls -->
+                <div class="flex flex-wrap gap-2 mt-4 md:mt-0">
+                    <button onclick="filterJersey('all')" id="jersey-btn-all" class="px-4 py-2 bg-kumushaRed text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all hover-lift">All Jerseys</button>
+                    <button onclick="filterJersey('match')" id="jersey-btn-match" class="px-4 py-2 bg-accentGray text-gray-300 hover:text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all hover-lift">Match Jerseys</button>
+                    <button onclick="filterJersey('training')" id="jersey-btn-training" class="px-4 py-2 bg-accentGray text-gray-300 hover:text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all hover-lift">Training Gear</button>
+                </div>
+            </div>
+            
+             <!-- Jersey Grid Content -->
+             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="jersey-posts-grid">
+                 <!-- Jersey cards will be generated dynamically via JS -->
+             </div>
+         </section>
+
+           <!-- COACH GALLERY SECTION -->
+           <section id="section-coach" class="mb-16 hidden section-fade">
+               <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-accentGray reveal">
+                   <div>
+                       <span class="text-kumushaRed text-xs font-bold uppercase tracking-widest">MEET THE COACH</span>
+                       <h2 class="font-athletic font-black text-3xl sm:text-4xl uppercase text-white mt-1">SHINGI KAWONDERA</h2>
+                       <p class="text-gray-400 text-sm mt-1">Founder and Head Coach of Kumusha Soccer Academy</p>
+                   </div>
+               </div>
+               
+                <!-- Coach Gallery Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="coach-gallery-grid">
+                    <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
+                        <img src="images/kawondera 1.jpeg" alt="Coach Shingi Kawondera" class="w-full h-full object-cover">
+                    </div>
+                    <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
+                        <img src="images/kawondera 2.jpeg" alt="Coach Shingi Kawondera" class="w-full h-full object-cover">
+                    </div>
+                    <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
+                        <img src="images/kawondera3.jpeg" alt="Coach Shingi Kawondera" class="w-full h-full object-cover">
+                    </div>
+                </div>
+           </section>
+
+          <!-- HISTORY SECTION -->
+          <section id="section-history" class="mb-16 hidden section-fade">
+              <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-accentGray reveal">
+                  <div>
+                      <span class="text-kumushaRed text-xs font-bold uppercase tracking-widest">OUR STORY</span>
+                      <h2 class="font-athletic font-black text-3xl sm:text-4xl uppercase text-white mt-1">THE KUMUSHA STORY</h2>
+                      <p class="text-gray-400 text-sm mt-1">Founded by Lonestar and Ruvimbo Makoni</p>
+                  </div>
+              </div>
+              
+              <!-- History Content -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <!-- History text content -->
+                  <div class="space-y-6">
+                      <h3 class="font-athletic font-black text-xl text-white uppercase tracking-wider">Our Founding Vision</h3>
+                      <p class="text-gray-300 leading-relaxed">
+                          Kumusha Soccer Academy was founded by Lonestar and Ruvimbo Makoni with a vision to provide elite soccer training to Zimbabwean youth. Their passion for the sport and commitment to community development led to the creation of this academy, which now stands as a beacon of hope for aspiring young athletes.
+                      </p>
+                      <p class="text-gray-300 leading-relaxed">
+                          Lonestar and Ruvimbo are also the proud owners of Breaking Barriers Disability Services and Valt Hair & Beauty Salon. Through these ventures, they have built a legacy of empowerment and excellence in the community, using the academy as a platform to nurture talent and transform lives through sport.
+                      </p>
+                      <h3 class="font-athletic font-black text-xl text-white uppercase tracking-wider mt-6">Breaking Barriers & Valt</h3>
+                      <p class="text-gray-300 leading-relaxed">
+                          Breaking Barriers Disability Services, owned by Lonestar and Ruvimbo Makoni, provides essential support and inclusion for differently-abled members of our community. Valt Hair & Beauty Salon is their flagship enterprise that funds many academy initiatives. Together, these businesses embody the same spirit of resilience and creativity that drives Kumusha Soccer Academy.
+                      </p>
+                  </div>
+                  
+                  <!-- History image -->
+                  <div class="hidden md:block">
+                      <div class="relative h-96 bg-zinc-900 overflow-hidden rounded-2xl shadow-2xl">
+                          <img src="images/ball.jpg" alt="Kumusha Academy history" class="w-full h-full object-cover">
+                      </div>
+                  </div>
+              </div>
+          </section>
+
+          <!-- MOMENTS GALLERY SECTION -->
+          <section id="section-moments" class="mb-16 hidden section-fade">
+              <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-accentGray reveal">
+                  <div>
+                      <span class="text-kumushaRed text-xs font-bold uppercase tracking-widest">ACADEMY MOMENTS</span>
+                      <h2 class="font-athletic font-black text-3xl sm:text-4xl uppercase text-white mt-1">CAPTURED MOMENTS</h2>
+                      <p class="text-gray-400 text-sm mt-1">Action shots and memories from our training sessions and matches</p>
+                  </div>
+              </div>
+              
+              <!-- Moments Gallery Grid -->
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="moments-gallery-grid">
+                  <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
+                      <img src="images/ball.jpg" alt="Academy moments - ball" class="w-full h-full object-cover">
+                  </div>
+                  <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
+                      <img src="images/shooters.avif" alt="Academy moments - shooters" class="w-full h-full object-cover">
+                  </div>
+                  <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
+                      <img src="images/kawondera 1.jpeg" alt="Academy moments - coach" class="w-full h-full object-cover">
+                  </div>
+                  <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
+                      <img src="images/kawondera 2.jpeg" alt="Academy moments - coach action" class="w-full h-full object-cover">
+                  </div>
+                  <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
+                      <img src="images/kawondera3.jpeg" alt="Academy moments - training" class="w-full h-full object-cover">
+                  </div>
+                  <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
+                      <img src="images/jersy.png" alt="Academy moments - match day" class="w-full h-full object-cover">
+                  </div>
+              </div>
+          </section>
+
+        <!-- REGISTRATION SYSTEM (WIZARD STEPS) -->
+        <section id="section-register" class="mb-16 hidden section-fade">
+            <div class="max-w-4xl mx-auto bg-cardGray border border-accentGray rounded-3xl overflow-hidden shadow-2xl reveal-scale reveal">
+                
+                <!-- Wizard Progress Indicator Header -->
+                <div class="bg-accentGray/80 px-6 sm:px-12 py-6 border-b border-accentGray">
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <span class="text-xs uppercase tracking-widest text-kumushaRed font-bold">2026 Academic Season</span>
+                            <h2 class="font-athletic font-black text-2xl uppercase text-white">Academy Roster Application</h2>
+                        </div>
+                        <span class="text-xs text-gray-400 bg-deepBlack px-3 py-1.5 rounded-full font-bold">Step <span id="current-step-num">1</span> of 3</span>
+                    </div>
+
+                    <!-- Animated Progress Bar Indicator -->
+                    <div class="w-full bg-deepBlack h-2 rounded-full overflow-hidden relative">
+                        <div id="step-indicator-bar" class="step-progress-line absolute top-0 left-0 h-full bg-gradient-to-r from-kumushaRed to-red-500" style="width: 33%;"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-2 mt-4 text-center">
+                        <span id="step-label-1" class="text-[11px] font-bold uppercase tracking-wider text-kumushaRed">1. Player Info</span>
+                        <span id="step-label-2" class="text-[11px] font-bold uppercase tracking-wider text-gray-500">2. Parent Details</span>
+                        <span id="step-label-3" class="text-[11px] font-bold uppercase tracking-wider text-gray-500">3. Uniform & Squad</span>
+                    </div>
+                </div>
+
+                <!-- Registration Form Inputs Form -->
+                <form id="registration-form" onsubmit="handleRegistrationSubmit(event)" class="p-6 sm:p-12 space-y-8">
+                    
+                    <!-- STEP 1 PANEL: PLAYER INFO -->
+                    <div id="register-step-1" class="space-y-6">
+                        <div class="border-b border-accentGray pb-3">
+                            <h3 class="text-lg font-bold text-white uppercase tracking-wider">Player Profile Information</h3>
+                            <p class="text-xs text-gray-400">Provide general detail criteria matching the registering prospect.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="player_name" class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Player's Full Name <span class="text-kumushaRed">*</span></label>
+                                <input type="text" id="player_name" required placeholder="e.g. Tinashe Gumbo" class="w-full bg-deepBlack border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-kumushaRed focus:ring-1 focus:ring-kumushaRed transition-all">
+                            </div>
+                            <div class="space-y-2">
+                                <label for="player_dob" class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Date of Birth <span class="text-kumushaRed">*</span></label>
+                                <input type="date" id="player_dob" required class="w-full bg-deepBlack border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-kumushaRed focus:ring-1 focus:ring-kumushaRed transition-all">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="player_age_group" class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Age Bracket <span class="text-kumushaRed">*</span></label>
+                                <select id="player_age_group" required class="w-full bg-deepBlack border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-kumushaRed focus:ring-1 focus:ring-kumushaRed transition-all">
+                                    <option value="" disabled selected>Select age category</option>
+                                    <option value="Under 10">Under 10 Years</option>
+                                    <option value="Under 13">Under 13 Years</option>
+                                    <option value="Under 16">Under 16 Years</option>
+                                    <option value="Under 18">Under 18 Years</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="player_position" class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Preferred Field Position <span class="text-kumushaRed">*</span></label>
+                                <select id="player_position" required class="w-full bg-deepBlack border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-kumushaRed focus:ring-1 focus:ring-kumushaRed transition-all">
+                                    <option value="" disabled selected>Select position</option>
+                                    <option value="Goalkeeper">Goalkeeper (GK)</option>
+                                    <option value="Defender">Defender (DEF)</option>
+                                    <option value="Midfielder">Midfielder (MID)</option>
+                                    <option value="Forward">Forward / Striker (FWD)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="player_experience" class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Prior Playing Experience (Optional)</label>
+                            <textarea id="player_experience" rows="3" placeholder="List high school, club play background or other teams if applicable..." class="w-full bg-deepBlack border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-kumushaRed focus:ring-1 focus:ring-kumushaRed transition-all"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2 PANEL: GUARDIAN DETAILS -->
+                    <div id="register-step-2" class="space-y-6 hidden">
+                        <div class="border-b border-accentGray pb-3">
+                            <h3 class="text-lg font-bold text-white uppercase tracking-wider">Parent & Contact Specifics</h3>
+                            <p class="text-xs text-gray-400">Mandatory data for emergencies and academy notifications.</p>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="guardian_name" class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Parent / Guardian Full Name <span class="text-kumushaRed">*</span></label>
+                            <input type="text" id="guardian_name" placeholder="e.g. Charles Gumbo" class="w-full bg-deepBlack border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-kumushaRed focus:ring-1 focus:ring-kumushaRed transition-all">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="contact_phone" class="block text-xs font-bold text-gray-300 uppercase tracking-wider">WhatsApp / Call Contact Phone <span class="text-kumushaRed">*</span></label>
+                                <input type="tel" id="contact_phone" placeholder="e.g. +263 77 293 4624" class="w-full bg-deepBlack border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-kumushaRed focus:ring-1 focus:ring-kumushaRed transition-all">
+                            </div>
+                            <div class="space-y-2">
+                                <label for="contact_email" class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Email Address <span class="text-kumushaRed">*</span></label>
+                                <input type="email" id="contact_email" placeholder="e.g. parent@domain.com" class="w-full bg-deepBlack border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-kumushaRed focus:ring-1 focus:ring-kumushaRed transition-all">
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 pt-2">
+                            <div class="flex items-start">
+                                <input type="checkbox" id="consent_terms" class="mt-1 accent-kumushaRed rounded">
+                                <label for="consent_terms" class="ml-3 text-xs text-gray-400 leading-normal">
+                                    I consent to having my child participate in physical fitness evaluations, field sessions at Alex Sports Club, and academic tour screenings held by coaches representing Kumusha Soccer Academy.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3 PANEL: GEAR SIZING & CUSTOM JERSEY PREVIEW -->
+                    <div id="register-step-3" class="space-y-6 hidden">
+                        <div class="border-b border-accentGray pb-3">
+                            <h3 class="text-lg font-bold text-white uppercase tracking-wider">Gear Sizing & Squad Preferences</h3>
+                            <p class="text-xs text-gray-400">Configure custom-fit sportswear options styled like official kits.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <div class="space-y-2">
+                                    <label for="tracksuit_size" class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Tracksuit Size <span class="text-kumushaRed">*</span></label>
+                                    <select id="tracksuit_size" class="w-full bg-deepBlack border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-kumushaRed focus:ring-1 focus:ring-kumushaRed transition-all">
+                                        <option value="XS">Youth Extra Small (XS)</option>
+                                        <option value="S">Youth Small (S)</option>
+                                        <option value="M" selected>Youth Medium (M)</option>
+                                        <option value="L">Youth Large (L)</option>
+                                        <option value="XL">Adult Small / Medium</option>
+                                    </select>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label for="jersey_size" class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Match Jersey & Short Size <span class="text-kumushaRed">*</span></label>
+                                    <select id="jersey_size" class="w-full bg-deepBlack border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-kumushaRed focus:ring-1 focus:ring-kumushaRed transition-all">
+                                        <option value="XS">Youth Extra Small (XS)</option>
+                                        <option value="S">Youth Small (S)</option>
+                                        <option value="M" selected>Youth Medium (M)</option>
+                                        <option value="L">Youth Large (L)</option>
+                                        <option value="XL">Adult Small</option>
+                                    </select>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label for="squad_number" class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Preferred Jersey Number (1-99) <span class="text-kumushaRed">*</span></label>
+                                    <input type="number" id="squad_number" min="1" max="99" value="10" oninput="updateJerseyPreview()" class="w-full bg-deepBlack border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-kumushaRed focus:ring-1 focus:ring-kumushaRed transition-all">
+                                </div>
+                            </div>
+
+                            <!-- LIVE JERSEY GENERATOR PREVIEW CARD -->
+                            <div class="flex flex-col items-center justify-center bg-accentGray/30 p-6 rounded-2xl border border-accentGray">
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Live Kit Customizer</span>
+                                
+                                <div class="relative w-44 h-56 bg-zinc-900 rounded-2xl border border-zinc-800 shadow-xl overflow-hidden flex flex-col items-center justify-center">
+                                    <!-- Dynamic graphic jersey preview -->
+                                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-900 to-transparent"></div>
+                                    
+                                    <!-- Jersey Mock -->
+                                    <div class="relative w-28 h-36 flex items-center justify-center">
+                                        <svg class="w-full h-full text-white drop-shadow-[0_10px_15px_rgba(214,26,26,0.2)]" viewBox="0 0 100 100" fill="currentColor">
+                                            <path d="M 20 20 L 35 15 L 40 22 L 45 15 L 55 15 L 60 22 L 65 15 L 80 20 L 75 40 L 70 40 L 70 90 L 30 90 L 30 40 L 25 40 Z" />
+                                            <path d="M 32 90 L 48 90 L 68 25 L 63 20 Z" fill="#D61A1A" />
+                                        </svg>
+                                        <!-- Realtime Custom Number Reflection -->
+                                        <span id="preview-kit-number" class="absolute top-[38%] font-athletic font-black text-3xl text-zinc-950">10</span>
+                                        <span id="preview-kit-name" class="absolute bottom-6 text-[8px] font-bold text-white uppercase tracking-widest">KUMUSHA FC</span>
+                                    </div>
+                                    <span class="absolute top-2 text-[8px] text-gray-400 font-bold uppercase tracking-widest">KUMUSHA</span>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-3 text-center">Match jersey design concept featuring the iconic red paint brush streak.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step controls Navigation Footer -->
+                    <div class="flex justify-between items-center pt-8 border-t border-accentGray">
+                        <button type="button" id="prev-step-btn" onclick="wizardPrev()" class="hidden px-6 py-3 bg-accentGray hover:bg-zinc-800 text-white rounded-xl font-athletic font-bold text-xs tracking-wider uppercase transition-colors">
+                            <i class="fa-solid fa-arrow-left mr-2"></i>Back
+                        </button>
+                        
+                        <div class="flex-1"></div>
+
+                        <button type="button" id="next-step-btn" onclick="wizardNext()" class="px-6 py-3 bg-kumushaRed hover:bg-kumushaDark text-white rounded-xl font-athletic font-bold text-xs tracking-wider uppercase transition-all hover-lift">
+                            Next Stage <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+
+                        <button type="submit" id="submit-reg-btn" class="hidden px-8 py-3 bg-gradient-to-r from-kumushaRed to-red-600 hover:from-kumushaDark hover:to-kumushaRed text-white rounded-xl font-athletic font-black text-xs tracking-widest uppercase transition-all hover-lift">
+                            Complete Roster Join <i class="fa-solid fa-circle-check ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ACADEMY DETAILS & SCHEDULE (ABOUT) -->
+        <section id="section-about" class="mb-16 hidden section-fade">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Promotional Flyer Display -->
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-accentGray reveal-left reveal group cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-br from-kumushaRed/20 to-transparent z-10 group-hover:from-kumushaRed/40 transition-all duration-300"></div>
+                    <img src="images/flier.png" alt="Kumusha Soccer Academy 2026 Season Official Flyer" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-deepBlack via-deepBlack/80 to-transparent p-4 z-20">
+                        <p class="text-xs text-kumushaRed font-bold uppercase tracking-widest">Official Promotional Material</p>
+                        <p class="text-white text-sm font-athletic font-bold mt-1">Share with Friends & Family</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6 reveal-right reveal">
+                    <span class="text-kumushaRed text-xs font-bold uppercase tracking-widest animate-pulse">ABOUT THE PROGRAM</span>
+                    <h2 class="font-athletic font-black text-4xl text-white uppercase leading-tight">
+                        BRINGING WORLD CLASS SPORT STANDARDS TO ZIMBABWE
+                    </h2>
+                    <p class="text-gray-300 leading-relaxed">
+                        Kumusha Soccer Academy represents an advanced training pathway built around the specific vision of coach Shingi Kawondera. Focused on intensive, progressive drills to refine athletic coordination, game-theory, and tactical awareness.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3 hover:translate-x-2 transition-transform duration-300">
+                            <div class="bg-kumushaRed/20 p-2 rounded-lg text-kumushaRed mt-1">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Professional European Training Standards</h4>
+                                <p class="text-xs text-gray-400">Drill blueprints, technical scouting metrics, and tactical philosophies aligned with European sports schools.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3 hover:translate-x-2 transition-transform duration-300">
+                            <div class="bg-kumushaRed/20 p-2 rounded-lg text-kumushaRed mt-1">
+                                <i class="fa-solid fa-plane"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">African & European Tour Opportunities</h4>
+                                <p class="text-xs text-gray-400">Top academy selections travel regularly to compete against world clubs and build professional contracts exposure.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Training Information Checklist -->
+            <div class="mt-16 bg-cardGray border border-accentGray p-8 rounded-3xl relative overflow-hidden reveal">
+                <div class="absolute right-0 bottom-0 top-0 w-1/2 bg-gradient-to-tr from-kumushaRed/10 to-transparent pointer-events-none"></div>
+                <h3 class="font-athletic font-bold text-lg text-white uppercase tracking-wider mb-6 border-b border-accentGray pb-3">Training Information Checklist</h3>
+
+                <div class="space-y-6 text-sm">
+                    <div class="flex justify-between items-center py-2 border-b border-accentGray/60 hover:border-kumushaRed transition-colors duration-300">
+                        <span class="text-gray-400">Ground Venue Venue</span>
+                        <span class="text-white font-bold">Alex Sports Club, Harare</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-accentGray/60 hover:border-kumushaRed transition-colors duration-300">
+                        <span class="text-gray-400">Training Session Hours</span>
+                        <span class="text-white font-bold">15:30 to 17:30</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-accentGray/60 hover:border-kumushaRed transition-colors duration-300">
+                        <span class="text-gray-400">Academy Training Days</span>
+                        <span class="text-white font-bold">Tuesday & Thursday</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-accentGray/60 hover:border-kumushaRed transition-colors duration-300">
+                        <span class="text-gray-400">Acceptable Entry Ages</span>
+                        <span class="text-white font-bold">8 to 18 Years</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-accentGray/60 hover:border-kumushaRed transition-colors duration-300">
+                        <span class="text-gray-400">Primary Kit Outfit</span>
+                        <span class="text-white font-bold">Kumusha Custom Slash Suit</span>
+                    </div>
+                </div>
+
+                <!-- Proud Sponsor badging from approved flyer files -->
+                <div class="mt-8 pt-6 border-t border-accentGray text-center space-y-3">
+                    <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Proud Corporate Sponsors</p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <div class="bg-deepBlack px-4 py-2 rounded-lg border border-accentGray flex items-center space-x-2 hover:border-kumushaRed transition-all duration-300 hover:scale-105">
+                            <i class="fa-solid fa-handshake text-kumushaRed text-xs animate-pulse"></i>
+                            <span class="text-[10px] font-bold text-gray-200">Breaking Barriers Disability Services</span>
+                        </div>
+                        <div class="bg-deepBlack px-4 py-2 rounded-lg border border-accentGray flex items-center space-x-2 hover:border-kumushaRed transition-all duration-300 hover:scale-105">
+                            <i class="fa-solid fa-crown text-amber-500 text-xs animate-pulse"></i>
+                            <span class="text-[10px] font-bold text-gray-200">Valt Hair & Beauty Salon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FULL INTEGRATED ARTICLE MODAL DRAWER READER -->
+    <div id="article-modal" class="hidden fixed inset-0 bg-deepBlack/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-cardGray border border-accentGray w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[85vh] transform transition-transform duration-300 scale-95 opacity-0" id="article-modal-container">
+            <div class="relative h-48 bg-zinc-900 flex items-center justify-center">
+                <!-- Accent slash bg -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-kumushaRed/40 via-deepBlack/80 to-transparent"></div>
+                <div class="absolute inset-0 bg-cover bg-center opacity-35" id="article-modal-image"></div>
+                <button onclick="closeArticleModal()" class="absolute top-4 right-4 bg-deepBlack/80 text-white rounded-full p-2 hover:bg-kumushaRed transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <div class="absolute bottom-4 left-6">
+                    <span id="article-modal-category" class="bg-kumushaRed text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest"></span>
+                </div>
+            </div>
+
+            <div class="p-6 sm:p-8 overflow-y-auto space-y-4">
+                <h3 id="article-modal-title" class="font-athletic font-black text-2xl uppercase tracking-wide text-white leading-tight"></h3>
+                <div class="flex items-center space-x-4 text-xs text-gray-400 border-b border-accentGray pb-3">
+                    <span id="article-modal-date"><i class="fa-solid fa-calendar mr-1.5"></i></span>
+                    <span id="article-modal-author"><i class="fa-solid fa-user mr-1.5"></i></span>
+                </div>
+                <div id="article-modal-content" class="text-sm text-gray-300 leading-relaxed space-y-4"></div>
+            </div>
+
+            <div class="p-4 bg-accentGray/40 border-t border-accentGray text-right">
+                <button onclick="closeArticleModal()" class="bg-kumushaRed hover:bg-kumushaDark text-white px-6 py-2.5 rounded-xl font-athletic font-bold text-xs uppercase tracking-wider transition-colors">
+                    Done Reading
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- REGISTRATION CONFIRMATION CARD MODAL -->
+    <div id="success-modal" class="hidden fixed inset-0 bg-deepBlack/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-cardGray border border-accentGray w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl p-6 text-center space-y-6 relative transform transition-all duration-300 scale-95 opacity-0" id="success-modal-container">
+            <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-kumushaRed to-amber-500"></div>
+            
+            <div class="w-16 h-16 bg-kumushaRed/25 text-kumushaRed rounded-full flex items-center justify-center mx-auto text-3xl animate-bounce">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div class="space-y-2">
+                <h3 class="font-athletic font-black text-xl text-white uppercase tracking-wider">Prospect Enrolled!</h3>
+                <p class="text-xs text-gray-400">Roster invitation generated. Review your verified card status below.</p>
+            </div>
+
+            <!-- Visual Pass Design -->
+            <div class="bg-zinc-950 border border-zinc-800 rounded-2xl p-4 relative overflow-hidden text-left shadow-lg">
+                <div class="absolute right-0 bottom-0 top-0 w-1/3 bg-gradient-to-tr from-kumushaRed/25 to-transparent pointer-events-none"></div>
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <p class="text-[8px] font-bold text-kumushaRed uppercase tracking-widest">KUMUSHA ACADEMY</p>
+                        <h4 class="text-sm font-bold text-white uppercase" id="card-player-name">Tinashe Gumbo</h4>
+                    </div>
+                    <span class="text-xs text-gray-500 bg-zinc-900 px-2.5 py-1 rounded-full font-bold" id="card-player-group">Under 16</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-[10px] uppercase tracking-wide">
+                    <div>
+                        <p class="text-gray-500 font-bold">Field Role</p>
+                        <p class="text-white font-bold text-xs mt-0.5" id="card-player-position">Forward / Striker</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500 font-bold">Squad Number</p>
+                        <p class="text-kumushaRed font-athletic font-black text-lg" id="card-player-number">10</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500 font-bold">Gear Sizes</p>
+                        <p class="text-white font-bold" id="card-player-size">Kit: M | Suit: M</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500 font-bold">Starts Camp</p>
+                        <p class="text-white font-bold">July 1, 2026</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex space-x-3 pt-2">
+                <button onclick="closeSuccessModal()" class="flex-1 bg-kumushaRed hover:bg-kumushaDark text-white py-3 rounded-xl font-athletic font-bold text-xs uppercase tracking-wider transition-colors shadow-lg">
+                    Awesome, Thanks!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER SYSTEM -->
+    <footer class="bg-zinc-950 border-t border-accentGray py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Official Logo Showcase -->
+            <div class="mb-8 flex justify-center">
+                <div class="w-32 h-32 relative group cursor-pointer transform hover:scale-110 transition-transform duration-300">
+                    <img src="images/Approved%20logo.jpeg" alt="Kumusha Soccer Academy Official Logo" class="w-full h-full object-contain drop-shadow-lg group-hover:drop-shadow-2xl transition-all duration-300">
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <div class="text-center md:text-left space-y-2">
+                <h4 class="font-athletic font-black text-xl text-white tracking-widest">KUMUSHA SOCCER ACADEMY</h4>
+                <p class="text-xs text-gray-400">© 2026 Kumusha Soccer Academy. Built for elite Zimbabwean youth players.</p>
+            </div>
+            <div class="flex flex-col items-center space-y-2 text-center">
+                <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Official Ground Venue</span>
+                <p class="text-xs text-white font-semibold"><i class="fa-solid fa-location-dot text-kumushaRed mr-2"></i>Alex Sports Club, Harare, Zimbabwe</p>
+            </div>
+            <div class="flex flex-col items-center md:items-end space-y-3">
+                <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Call / WhatsApp Registration Helpline</span>
+                <div class="flex flex-col text-xs text-right text-gray-400 space-y-1">
+                    <a href="tel:+263772934624" class="hover:text-kumushaRed transition-colors"><i class="fa-brands fa-whatsapp text-emerald-500 mr-2"></i>+263 77 293 4624</a>
+                    <a href="tel:+263779087899" class="hover:text-kumushaRed transition-colors"><i class="fa-solid fa-phone text-zinc-400 mr-2"></i>+263 77 908 7899</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGIC STATE ENGINE & APP CONTROLLER -->
+    <script>
+        // Stateful Roster Data Cache
+        let registeredPlayers = [
+            { id: 1, name: "Blessing Musona", dob: "2011-04-12", ageGroup: "Under 16", position: "Forward", sizeKit: "S", sizeSuit: "S", number: 9 },
+            { id: 2, name: "Kuda Chawapiwa", dob: "2009-08-25", ageGroup: "Under 18", position: "Midfielder", sizeKit: "M", sizeSuit: "M", number: 10 },
+            { id: 3, name: "Takudzwa Mutasa", dob: "2013-02-14", ageGroup: "Under 13", position: "Goalkeeper", sizeKit: "S", sizeSuit: "M", number: 1 },
+            { id: 4, name: "Farai Chigova", dob: "2015-11-03", ageGroup: "Under 10", position: "Defender", sizeKit: "XS", sizeSuit: "XS", number: 4 }
+        ];
+
+        // Roster Cap Config
+        const MAX_SLOTS = 40;
+
+        // Interactive Jersey Database State Array
+        const jerseyPosts = [
+            {
+                id: 1,
+                title: "Match Jersey - Official Edition",
+                summary: "Official match jersey featuring the iconic red paint brush stripe design that represents Kumusha's fighting spirit.",
+                content: "<p>Our premium match jersey engineered for peak performance during competitive fixtures. Features moisture-wicking technology, strategic ventilation zones, and a tailored athletic fit that allows unrestricted movement on the pitch.</p><p>The distinctive paint brush stroke design symbolizes the artistic flair and creativity we nurture in our players, combining traditional Zimbabwean spirit with modern sports aesthetics.</p>",
+                category: "match",
+                author: "Kit Design Team",
+                date: "May 25, 2026",
+                image: "images/jersy.png"
+            },
+            {
+                id: 2,
+                title: "Premium Tracksuit - Training Essential",
+                summary: "Complete tracksuit set designed for optimal comfort and performance during training sessions and warm-ups.",
+                content: "<p>Our premium tracksuit combines functionality with style, featuring breathable fabric technology that regulates body temperature during intense training sessions. The ergonomic design ensures full range of motion for all drills and exercises.</p><p>Includes matching jacket and pants with Kumusha branding, zippered pockets for secure storage, and ankle zippers for easy on/off over athletic shoes.</p>",
+                category: "training",
+                author: "Equipment Specialists",
+                date: "May 20, 2026",
+                image: "images/track.png"
+            }
+        ];
+
+        // Active Application Form Step State
+        let currentFormStep = 1;
+
+        // View Controller Function with smooth cross-fade
+        function navigateTo(sectionId) {
+            const sections = ['home', 'blog', 'coach', 'history', 'moments', 'register', 'about'];
+            
+            sections.forEach(sec => {
+                const element = document.getElementById('section-' + sec);
+                const navLink = document.getElementById('nav-' + sec);
+                
+                if (sec === sectionId) {
+                    element.classList.remove('hidden');
+                    element.classList.add('section-fade');
+                    if (navLink) navLink.classList.add('nav-active');
+                } else {
+                    element.classList.add('hidden');
+                    element.classList.remove('section-fade');
+                    if (navLink) navLink.classList.remove('nav-active');
+                }
+            });
+
+            // Close mobile drawer menu
+            document.getElementById('mobile-menu').classList.add('hidden');
+            const icon = document.getElementById('menu-icon');
+            if (icon) icon.className = "fa-solid fa-bars text-2xl";
+
+            // Scroll cleanly to the top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Refresh the scroll reveal triggers for elements inside the newly visible section
+            setTimeout(initializeScrollReveal, 100);
+        }
+
+        // Toggle Mobile Menu Drawer
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.className = "fa-solid fa-xmark text-2xl";
+            } else {
+                menu.classList.add('hidden');
+                icon.className = "fa-solid fa-bars text-2xl";
+            }
+        }
+
+        // Generate and Render Jersey Posts with staggered slide reveal animations
+        function renderJersey(filterCategory = 'all') {
+            const grid = document.getElementById('jersey-posts-grid');
+            grid.innerHTML = '';
+
+            const filtered = filterCategory === 'all' 
+                ? jerseyPosts 
+                : jerseyPosts.filter(p => p.category === filterCategory);
+
+            filtered.forEach((post, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-cardGray border border-accentGray rounded-2xl overflow-hidden hover-lift flex flex-col reveal reveal-scale";
+                card.style.transitionDelay = `${index * 100}ms`;
+                card.innerHTML = `
+                    <div class="relative h-48 bg-zinc-900 overflow-hidden">
+                        <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover opacity-80 transition-transform duration-500 hover:scale-110">
+                        <span class="absolute top-4 left-4 bg-kumushaRed text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">${post.category}</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <span class="text-gray-500 text-xs">${post.date}</span>
+                            <h3 class="font-athletic font-black text-lg text-white uppercase tracking-wide leading-snug line-clamp-2">${post.title}</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed line-clamp-3">${post.summary}</p>
+                        </div>
+                        <button onclick="openJersey(${post.id})" class="text-left text-xs font-bold text-kumushaRed hover:text-white transition-colors uppercase tracking-widest flex items-center space-x-2">
+                            <span>View Details</span>
+                            <i class="fa-solid fa-angle-right"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Re-initialize reveals for the new elements
+            initializeScrollReveal();
+        }
+
+        // Filter Jersey Controller
+        function filterJersey(category) {
+            // Reset button active classes
+            ['all', 'match', 'training'].forEach(cat => {
+                const btn = document.getElementById('jersey-btn-' + cat);
+                if (btn) {
+                    btn.className = "px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all hover-lift bg-accentGray text-gray-300 hover:text-white";
+                }
+            });
+
+            // Set active class to clicked button
+            const activeBtn = document.getElementById('jersey-btn-' + category);
+            if (activeBtn) {
+                activeBtn.className = "px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all hover-lift bg-kumushaRed text-white";
+            }
+
+            renderJersey(category);
+        }
+
+        // Open Individual Jersey in Reader Modal with smooth scaling transition
+        function openJersey(postId) {
+            const post = jerseyPosts.find(p => p.id === postId);
+            if (!post) return;
+
+            document.getElementById('article-modal-image').style.backgroundImage = `url('${post.image}')`;
+            document.getElementById('article-modal-category').innerText = post.category;
+            document.getElementById('article-modal-title').innerText = post.title;
+            document.getElementById('article-modal-date').innerHTML = `<i class="fa-solid fa-calendar mr-1.5"></i>Released: ${post.date}`;
+            document.getElementById('article-modal-author').innerHTML = `<i class="fa-solid fa-user mr-1.5"></i>Designed By: ${post.author}`;
+            document.getElementById('article-modal-content').innerHTML = post.content;
+
+            const modal = document.getElementById('article-modal');
+            const container = document.getElementById('article-modal-container');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                container.classList.remove('scale-95', 'opacity-0');
+            }, 50);
+        }
+
+        function closeArticleModal() {
+            const modal = document.getElementById('article-modal');
+            const container = document.getElementById('article-modal-container');
+            
+            container.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 250);
+        }
+
+        // Wizard Form Next/Prev Controller
+        function wizardUpdateUI() {
+            // Hide all steps
+            document.getElementById('register-step-1').classList.add('hidden');
+            document.getElementById('register-step-2').classList.add('hidden');
+            document.getElementById('register-step-3').classList.add('hidden');
+
+            // Show active step
+            const activeStep = document.getElementById('register-step-' + currentFormStep);
+            activeStep.classList.remove('hidden');
+            activeStep.classList.add('section-fade');
+
+            // Update header steps numbers & progress bar
+            document.getElementById('current-step-num').innerText = currentFormStep;
+            const percentage = currentFormStep === 1 ? 33 : currentFormStep === 2 ? 66 : 100;
+            document.getElementById('step-indicator-bar').style.width = percentage + '%';
+
+            // Active step label colors
+            for (let i = 1; i <= 3; i++) {
+                const label = document.getElementById('step-label-' + i);
+                if (i <= currentFormStep) {
+                    label.className = "text-[11px] font-bold uppercase tracking-wider text-kumushaRed";
+                } else {
+                    label.className = "text-[11px] font-bold uppercase tracking-wider text-gray-500";
+                }
+            }
+
+            // Wizard navigation buttons state transitions
+            if (currentFormStep === 1) {
+                document.getElementById('prev-step-btn').classList.add('hidden');
+                document.getElementById('next-step-btn').classList.remove('hidden');
+                document.getElementById('submit-reg-btn').classList.add('hidden');
+            } else if (currentFormStep === 2) {
+                document.getElementById('prev-step-btn').classList.remove('hidden');
+                document.getElementById('next-step-btn').classList.remove('hidden');
+                document.getElementById('submit-reg-btn').classList.add('hidden');
+            } else {
+                document.getElementById('prev-step-btn').classList.remove('hidden');
+                document.getElementById('next-step-btn').classList.add('hidden');
+                document.getElementById('submit-reg-btn').classList.remove('hidden');
+            }
+        }
+
+        function wizardNext() {
+            // Basic validation check before forwarding
+            if (currentFormStep === 1) {
+                const name = document.getElementById('player_name').value.trim();
+                const dob = document.getElementById('player_dob').value;
+                const ageGroup = document.getElementById('player_age_group').value;
+                const pos = document.getElementById('player_position').value;
+
+                if (!name || !dob || !ageGroup || !pos) {
+                    triggerNotification("Please fill out all player profiles details.");
+                    return;
+                }
+            } else if (currentFormStep === 2) {
+                const gname = document.getElementById('guardian_name').value.trim();
+                const phone = document.getElementById('contact_phone').value.trim();
+                const email = document.getElementById('contact_email').value.trim();
+                const consent = document.getElementById('consent_terms').checked;
+
+                if (!gname || !phone || !email) {
+                    triggerNotification("Parent/Guardian details are mandatory.");
+                    return;
+                }
+                if (!consent) {
+                    triggerNotification("You must accept program terms to proceed.");
+                    return;
+                }
+            }
+
+            currentFormStep++;
+            wizardUpdateUI();
+        }
+
+        function wizardPrev() {
+            if (currentFormStep > 1) {
+                currentFormStep--;
+                wizardUpdateUI();
+            }
+        }
+
+        // Live Jersey Sizing / Number Generator Updater
+        function updateJerseyPreview() {
+            const num = document.getElementById('squad_number').value || "0";
+            document.getElementById('preview-kit-number').innerText = num.substring(0, 2);
+        }
+
+        // Form Submit Handler
+        function handleRegistrationSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('player_name').value.trim();
+            const dob = document.getElementById('player_dob').value;
+            const ageGroup = document.getElementById('player_age_group').value;
+            const pos = document.getElementById('player_position').value;
+            const num = document.getElementById('squad_number').value || 10;
+            const sizeKit = document.getElementById('jersey_size').value;
+            const sizeSuit = document.getElementById('tracksuit_size').value;
+
+            // Generate squad data representation
+            const newProspect = {
+                id: Date.now(),
+                name: name,
+                dob: dob,
+                ageGroup: ageGroup,
+                position: pos,
+                sizeKit: sizeKit,
+                sizeSuit: sizeSuit,
+                number: parseInt(num)
+            };
+
+            // Prepend new prospect to system roster
+            registeredPlayers.unshift(newProspect);
+
+            // Re-render UI dashboard metrics
+            updateDashboardMetrics();
+            renderRosterTable();
+
+            // Populate visual receipt modal card
+            document.getElementById('card-player-name').innerText = name;
+            document.getElementById('card-player-group').innerText = ageGroup;
+            document.getElementById('card-player-position').innerText = pos;
+            document.getElementById('card-player-number').innerText = num;
+            document.getElementById('card-player-size').innerText = `Kit: ${sizeKit} | Suit: ${sizeSuit}`;
+
+            // Trigger success confirmation popups
+            const modal = document.getElementById('success-modal');
+            const container = document.getElementById('success-modal-container');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                container.classList.remove('scale-95', 'opacity-0');
+            }, 50);
+
+            // Reset Wizard Application Forms back to Step 1
+            document.getElementById('registration-form').reset();
+            currentFormStep = 1;
+            wizardUpdateUI();
+            updateJerseyPreview();
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('success-modal');
+            const container = document.getElementById('success-modal-container');
+            
+            container.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                navigateTo('about');
+            }, 250);
+        }
+
+        // Realtime notification banner trigger
+        function triggerNotification(msg) {
+            const banner = document.getElementById('custom-notification');
+            document.getElementById('notification-text').innerText = msg;
+            
+            banner.classList.remove('hidden');
+            setTimeout(() => {
+                banner.classList.remove('opacity-0', 'translate-y-10');
+            }, 50);
+
+            // Hide automatically after 4 seconds
+            setTimeout(closeNotification, 4000);
+        }
+
+        function closeNotification() {
+            const banner = document.getElementById('custom-notification');
+            banner.classList.add('opacity-0', 'translate-y-10');
+            setTimeout(() => {
+                banner.classList.add('hidden');
+            }, 300);
+        }
+
+        // Delete Player Roster Actions with exit animation support
+        function removePlayer(id, buttonEl) {
+            if (buttonEl) {
+                const tr = buttonEl.closest('tr');
+                tr.style.transform = 'translateX(-30px)';
+                tr.style.opacity = '0';
+                tr.style.transition = 'all 0.4s ease';
+                setTimeout(() => {
+                    executeRemoval(id);
+                }, 400);
+            } else {
+                executeRemoval(id);
+            }
+        }
+
+        function executeRemoval(id) {
+            registeredPlayers = registeredPlayers.filter(p => p.id !== id);
+            updateDashboardMetrics();
+            renderRosterTable();
+            triggerNotification("Prospect application successfully removed.");
+        }
+
+        // Render dashboard statistics & charts
+        function updateDashboardMetrics() {
+            const currentTotal = registeredPlayers.length;
+            const remaining = Math.max(0, MAX_SLOTS - currentTotal);
+
+            document.getElementById('total-roster-count').innerText = currentTotal;
+            document.getElementById('remaining-slots-count').innerText = remaining;
+
+            const totalPercentage = Math.min(100, (currentTotal / MAX_SLOTS) * 100);
+            const remainingPercentage = Math.max(0, (remaining / MAX_SLOTS) * 100);
+
+            document.getElementById('metric-fill-total').style.width = totalPercentage + '%';
+            document.getElementById('metric-fill-slots').style.width = remainingPercentage + '%';
+
+            // Distribution metrics values calculation
+            const distributionList = document.getElementById('positional-distribution-list');
+            distributionList.innerHTML = '';
+
+            const positionColors = {
+                Goalkeeper: 'from-amber-500 to-yellow-600',
+                Defender: 'from-sky-500 to-blue-600',
+                Midfielder: 'from-emerald-500 to-teal-600',
+                Forward: 'from-kumushaRed to-red-600'
+            };
+
+            const countByPos = { Goalkeeper: 0, Defender: 0, Midfielder: 0, Forward: 0 };
+            registeredPlayers.forEach(p => {
+                if (countByPos.hasOwnProperty(p.position)) countByPos[p.position]++;
+            });
+
+            Object.keys(countByPos).forEach(pos => {
+                const count = countByPos[pos];
+                const pct = currentTotal > 0 ? (count / currentTotal) * 100 : 0;
+                
+                const item = document.createElement('div');
+                item.className = "space-y-1";
+                item.innerHTML = `
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-400 font-bold">${pos}s</span>
+                        <span class="text-white font-bold">${count}</span>
+                    </div>
+                    <div class="w-full bg-deepBlack h-1.5 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r ${positionColors[pos]} transition-all duration-1000" style="width: ${pct}%"></div>
+                    </div>
+                `;
+                distributionList.appendChild(item);
+            });
+        }
+
+        // Render current table listings of registered players with inline entry animation
+        function renderRosterTable() {
+            const tbody = document.getElementById('roster-table-body');
+            const emptyMsg = document.getElementById('empty-roster-msg');
+            tbody.innerHTML = '';
+
+            if (registeredPlayers.length === 0) {
+                emptyMsg.classList.remove('hidden');
+                return;
+            } else {
+                emptyMsg.classList.add('hidden');
+            }
+
+            registeredPlayers.forEach((player, index) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-accentGray/25 transition-colors border-b border-accentGray/40 group opacity-0 translate-y-4";
+                tr.style.animation = `fadeInPage 0.4s ease forwards ${index * 60}ms`;
+                tr.innerHTML = `
+                    <td class="p-4 font-athletic font-black text-kumushaRed text-lg">#${player.number}</td>
+                    <td class="p-4">
+                        <div class="font-bold text-white">${player.name}</div>
+                        <div class="text-[10px] text-gray-500">${player.ageGroup} Division</div>
+                    </td>
+                    <td class="p-4 text-xs text-gray-300 font-semibold">${player.dob}</td>
+                    <td class="p-4">
+                        <span class="text-xs font-bold text-white bg-zinc-800 px-3 py-1 rounded-full border border-zinc-700">${player.position}</span>
+                    </td>
+                    <td class="p-4 text-xs text-gray-400">
+                        <div class="flex items-center space-x-2">
+                            <span>Suit: <strong class="text-white">${player.sizeSuit}</strong></span>
+                            <span class="text-zinc-600">|</span>
+                            <span>Kit: <strong class="text-white">${player.sizeKit}</strong></span>
+                        </div>
+                    </td>
+                    <td class="p-4 text-right">
+                        <button onclick="removePlayer(${player.id}, this)" class="text-gray-500 hover:text-kumushaRed opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-kumushaRed/10" title="Delete Prospect">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Viewport Intersection Observer for Scroll Triggered Transitions
+        let scrollRevealObserver;
+
+        function initializeScrollReveal() {
+            // Disconnect old observer if already existing to avoid memory leaks
+            if (scrollRevealObserver) {
+                scrollRevealObserver.disconnect();
+            }
+
+            const options = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -40px 0px"
+            };
+
+            scrollRevealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-visible');
+                    }
+                });
+            }, options);
+
+            // Select all hidden target elements and start observing
+            const elements = document.querySelectorAll('.reveal');
+            elements.forEach(el => {
+                // Remove visual reveal if page was previously closed, resetting animation state elegantly
+                if (!el.classList.contains('reveal-visible')) {
+                    scrollRevealObserver.observe(el);
+                } else {
+                    // Pre-visible items remain shown
+                    el.classList.add('reveal-visible');
+                }
+            });
+        }
+
+        // Application Initialization Entry Block
+        window.onload = function() {
+            filterJersey('all');
+            updateDashboardMetrics();
+            renderRosterTable();
+            
+            // Execute reveal framework observers
+            setTimeout(initializeScrollReveal, 150);
+        }
+    </script>
+</body>
+</html>
