@@ -14,7 +14,6 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="images/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="manifest" href="site.webmanifest">
     <meta property="og:site_name" content="Kumusha Football Academy">
     <meta property="og:title" content="Kumusha Football Academy | Kumujsha FA">
     <meta property="og:description" content="Professional youth football training, mentorship and character development for players aged 8-18 in Zimbabwe.">
@@ -25,6 +24,15 @@
     <meta name="twitter:title" content="Kumusha Football Academy | Kumujsha FA">
     <meta name="twitter:description" content="Developing disciplined, confident and globally competitive young footballers in Zimbabwe.">
     <meta name="twitter:image" content="images/Approved%20logo.jpeg">
+
+    <script>
+        if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+            const manifestLink = document.createElement('link');
+            manifestLink.rel = 'manifest';
+            manifestLink.href = 'site.webmanifest';
+            document.head.appendChild(manifestLink);
+        }
+    </script>
 
     <script type="application/ld+json">
     {
@@ -313,7 +321,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <!-- Brand Identity with Official Logo -->
-                <div class="flex items-center space-x-3 cursor-pointer group" onclick="navigateTo('home')">
+                <div class="flex items-center space-x-3 cursor-pointer group" onclick="navigateTo('home', event)">
                     <div class="relative w-14 h-14 transform group-hover:scale-110 transition-transform duration-300">
                         <img src="images/Approved%20logo.jpeg" alt="Kumusha Football Academy Official Logo" class="w-full h-full object-contain drop-shadow-lg">
                     </div>
@@ -324,17 +332,17 @@
 
                 <!-- Desktop Navigation Menu -->
                 <nav class="hidden md:flex space-x-8">
-                    <a href="#home" onclick="navigateTo('home')" id="nav-home" class="nav-active text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Home Portal</a>
-                    <a href="#blog" onclick="navigateTo('blog')" id="nav-blog" class="text-gray-300 hover:text-kumushaRed text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Jersey Collection</a>
-                    <!-- <a href="#coach" onclick="navigateTo('coach')" id="nav-coach" class="text-gray-300 hover:text-kumushaRed text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Meet the Coach</a> -->
-                    <a href="#history" onclick="navigateTo('history')" id="nav-history" class="text-gray-300 hover:text-kumushaRed text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Our History</a>
-                    <!-- <a href="#moments" onclick="navigateTo('moments')" id="nav-moments" class="text-gray-300 hover:text-kumushaRed text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Moments</a> -->
-                    <a href="#about" onclick="navigateTo('about')" id="nav-about" class="text-gray-300 hover:text-kumushaRed text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Details & Schedule</a>
+                    <a href="#home" onclick="navigateTo('home', event)" id="nav-home" class="nav-active text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Home Portal</a>
+                    <a href="#blog" onclick="navigateTo('blog', event)" id="nav-blog" class="text-gray-300 hover:text-kumushaRed text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Jersey Collection</a>
+                    <!-- <a href="#coach" onclick="navigateTo('coach', event)" id="nav-coach" class="text-gray-300 hover:text-kumushaRed text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Meet the Coach</a> -->
+                    <a href="#history" onclick="navigateTo('history', event)" id="nav-history" class="text-gray-300 hover:text-kumushaRed text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Our History</a>
+                    <!-- <a href="#moments" onclick="navigateTo('moments', event)" id="nav-moments" class="text-gray-300 hover:text-kumushaRed text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Moments</a> -->
+                    <a href="#about" onclick="navigateTo('about', event)" id="nav-about" class="text-gray-300 hover:text-kumushaRed text-sm font-semibold tracking-wide uppercase py-2 transition-colors">Details & Schedule</a>
                 </nav>
 
                 <!-- Navigation Action Call -->
                 <div class="flex items-center space-x-4">
-                    <button onclick="navigateTo('register')" class="shimmer-btn bg-kumushaRed hover:bg-kumushaDark text-white px-5 py-2.5 rounded-lg font-athletic font-bold text-xs tracking-wider uppercase shadow-md shadow-kumushaRed/20 transition-all transform hover:scale-105">
+                    <button onclick="navigateTo('register', event)" class="shimmer-btn bg-kumushaRed hover:bg-kumushaDark text-white px-5 py-2.5 rounded-lg font-athletic font-bold text-xs tracking-wider uppercase shadow-md shadow-kumushaRed/20 transition-all transform hover:scale-105">
                         <i class="fa-solid fa-file-signature mr-2"></i>Register
                     </button>
                     <!-- Mobile Hamburger Menu Button -->
@@ -348,14 +356,14 @@
         <!-- Mobile Navigation Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-cardGray/95 backdrop-blur-md border-b border-accentGray py-4 px-4">
             <div class="grid grid-cols-2 gap-3">
-                <a href="#home" onclick="navigateTo('home')" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">Home</a>
-                <a href="#blog" onclick="navigateTo('blog')" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">Jerseys</a>
-                <a href="#history" onclick="navigateTo('history')" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">History</a>
-                <a href="#about" onclick="navigateTo('about')" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">Details</a>
-                <a href="#moments" onclick="navigateTo('moments')" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">Moments</a>
-                <a href="#coach" onclick="navigateTo('coach')" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">Coach</a>
+                <a href="#home" onclick="navigateTo('home', event)" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">Home</a>
+                <a href="#blog" onclick="navigateTo('blog', event)" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">Jerseys</a>
+                <a href="#history" onclick="navigateTo('history', event)" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">History</a>
+                <a href="#about" onclick="navigateTo('about', event)" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">Details</a>
+                <a href="#moments" onclick="navigateTo('moments', event)" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">Moments</a>
+                <a href="#coach" onclick="navigateTo('coach', event)" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">Coach</a>
             </div>
-            <button onclick="navigateTo('register')" class="shimmer-btn mt-4 w-full bg-kumushaRed hover:bg-kumushaDark text-white px-4 py-3 rounded-xl font-athletic font-bold text-xs tracking-wider uppercase shadow-md shadow-kumushaRed/20">
+            <button onclick="navigateTo('register', event)" class="shimmer-btn mt-4 w-full bg-kumushaRed hover:bg-kumushaDark text-white px-4 py-3 rounded-xl font-athletic font-bold text-xs tracking-wider uppercase shadow-md shadow-kumushaRed/20">
                 Register Now
             </button>
         </div>
@@ -418,11 +426,11 @@
                         </div>
 
                         <div class="reveal-left reveal flex flex-col sm:flex-row gap-4 pt-6">
-                            <button onclick="navigateTo('register')" class="shimmer-btn w-full sm:w-auto bg-kumushaRed hover:bg-kumushaDark text-white px-8 py-4 rounded-xl font-athletic font-bold text-sm tracking-wider uppercase flex items-center justify-center space-x-3 transition-transform transform hover:-translate-y-1 shadow-lg shadow-kumushaRed/20">
+                            <button onclick="navigateTo('register', event)" class="shimmer-btn w-full sm:w-auto bg-kumushaRed hover:bg-kumushaDark text-white px-8 py-4 rounded-xl font-athletic font-bold text-sm tracking-wider uppercase flex items-center justify-center space-x-3 transition-transform transform hover:-translate-y-1 shadow-lg shadow-kumushaRed/20">
                                 <span>Get Registered Now</span>
                                 <i class="fa-solid fa-arrow-right"></i>
                             </button>
-                            <button onclick="navigateTo('blog')" class="w-full sm:w-auto bg-accentGray hover:bg-zinc-800 text-white px-8 py-4 rounded-xl font-athletic font-bold text-sm tracking-wider uppercase border border-zinc-700 hover:border-zinc-500 transition-colors">
+                            <button onclick="navigateTo('blog', event)" class="w-full sm:w-auto bg-accentGray hover:bg-zinc-800 text-white px-8 py-4 rounded-xl font-athletic font-bold text-sm tracking-wider uppercase border border-zinc-700 hover:border-zinc-500 transition-colors">
                                 View Jersey Collection
                             </button>
                         </div>
@@ -1026,7 +1034,7 @@
         const SUPABASE_URL = 'https://nffoxxuqyukeowfbkdaf.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable__oAqWX8l843m0dqxQKPdLQ_u2yneC2C';
         const REGISTRATION_TABLE = 'registrations';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const kumushaSupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // Interactive Jersey Database State Array
         const jerseyPosts = [
@@ -1057,7 +1065,9 @@
         let isSubmittingRegistration = false;
 
         // View Controller Function with smooth cross-fade
-        function navigateTo(sectionId) {
+        function navigateTo(sectionId, event) {
+            if (event) event.preventDefault();
+
             const sections = ['home', 'blog', 'coach', 'history', 'moments', 'register', 'about'];
             
             sections.forEach(sec => {
@@ -1335,11 +1345,12 @@
                 return;
             }
 
-            const { error } = await supabase.from(REGISTRATION_TABLE).insert(registrationPayload);
+            const { error } = await kumushaSupabase.from(REGISTRATION_TABLE).insert(registrationPayload);
 
             if (error) {
                 console.error('Supabase registration error:', error);
-                triggerNotification("Registration could not be saved. Please try again or contact the academy.");
+                const supabaseMessage = error.message || 'Unknown Supabase error';
+                triggerNotification(`Registration could not be saved: ${supabaseMessage}`);
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalSubmitText;
                 isSubmittingRegistration = false;
@@ -1440,17 +1451,23 @@
             const currentTotal = registeredPlayers.length;
             const remaining = Math.max(0, MAX_SLOTS - currentTotal);
 
-            document.getElementById('total-roster-count').innerText = currentTotal;
-            document.getElementById('remaining-slots-count').innerText = remaining;
+            const totalEl = document.getElementById('total-roster-count');
+            const remainingEl = document.getElementById('remaining-slots-count');
+            const totalFillEl = document.getElementById('metric-fill-total');
+            const slotsFillEl = document.getElementById('metric-fill-slots');
+            const distributionList = document.getElementById('positional-distribution-list');
+
+            if (totalEl) totalEl.innerText = currentTotal;
+            if (remainingEl) remainingEl.innerText = remaining;
 
             const totalPercentage = Math.min(100, (currentTotal / MAX_SLOTS) * 100);
             const remainingPercentage = Math.max(0, (remaining / MAX_SLOTS) * 100);
 
-            document.getElementById('metric-fill-total').style.width = totalPercentage + '%';
-            document.getElementById('metric-fill-slots').style.width = remainingPercentage + '%';
+            if (totalFillEl) totalFillEl.style.width = totalPercentage + '%';
+            if (slotsFillEl) slotsFillEl.style.width = remainingPercentage + '%';
+            if (!distributionList) return;
 
             // Distribution metrics values calculation
-            const distributionList = document.getElementById('positional-distribution-list');
             distributionList.innerHTML = '';
 
             const positionColors = {
@@ -1488,13 +1505,16 @@
         function renderRosterTable() {
             const tbody = document.getElementById('roster-table-body');
             const emptyMsg = document.getElementById('empty-roster-msg');
+            if (!tbody) return;
+
             tbody.innerHTML = '';
 
-            if (registeredPlayers.length === 0) {
-                emptyMsg.classList.remove('hidden');
-                return;
-            } else {
-                emptyMsg.classList.add('hidden');
+            if (emptyMsg) {
+                if (registeredPlayers.length === 0) {
+                    emptyMsg.classList.remove('hidden');
+                } else {
+                    emptyMsg.classList.add('hidden');
+                }
             }
 
             registeredPlayers.forEach((player, index) => {
