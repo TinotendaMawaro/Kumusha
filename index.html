@@ -3,10 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kumusha Soccer Academy | Elite Training & Registration</title>
+    <title>Kumusha Football Academy | Kumujsha FA | Elite Youth Football Training</title>
+    <meta name="description" content="Kumusha Football Academy, also searched as Kumujsha FA, is a Zimbabwe youth football academy developing players aged 8-18 through professional coaching, mentorship, discipline and character building.">
+    <meta name="keywords" content="Kumujsha Fa, Kumusha Football Academy, Kumusha FA, youth football academy Zimbabwe, football academy Harare, youth soccer academy Zimbabwe, Shingi Kawondera">
+    <meta name="author" content="Kumusha Football Academy">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#D61A1A">
+    <meta name="apple-mobile-web-app-title" content="Kumusha FA">
+    <link rel="canonical" href="./">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta property="og:site_name" content="Kumusha Football Academy">
+    <meta property="og:title" content="Kumusha Football Academy | Kumujsha FA">
+    <meta property="og:description" content="Professional youth football training, mentorship and character development for players aged 8-18 in Zimbabwe.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_ZW">
+    <meta property="og:image" content="images/Approved%20logo.jpeg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kumusha Football Academy | Kumujsha FA">
+    <meta name="twitter:description" content="Developing disciplined, confident and globally competitive young footballers in Zimbabwe.">
+    <meta name="twitter:image" content="images/Approved%20logo.jpeg">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["SportsOrganization", "LocalBusiness"],
+      "name": "Kumusha Football Academy",
+      "alternateName": ["Kumusha FA", "Kumujsha FA"],
+      "description": "Kumusha Football Academy is a Zimbabwe youth football academy developing players aged 8-18 through professional coaching, mentorship, discipline and character building.",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Zimbabwe"
+      },
+      "foundingLocation": "Harare, Zimbabwe",
+      "knowsAbout": [
+        "Youth football training",
+        "Football academy",
+        "Mentorship",
+        "Character development",
+        "Talent identification",
+        "Football tours"
+      ],
+      "founder": [
+        {
+          "@type": "Person",
+          "name": "Lonestar Makoni"
+        },
+        {
+          "@type": "Person",
+          "name": "Shingi Kawondera"
+        },
+        {
+          "@type": "Person",
+          "name": "Samuel Jimah"
+        }
+      ],
+      "employee": {
+        "@type": "Person",
+        "name": "Shingi Kawondera",
+        "jobTitle": "Co-Founder & Head Coach"
+      }
+    }
+    </script>
     
     <!-- Tailwind CSS for modern base layout -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <!-- FontAwesome for professional sport & interface icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -191,9 +255,58 @@
                 transform: translateY(0);
             }
         }
+
+        #particle-field {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            left: var(--left);
+            top: 110vh;
+            width: var(--size);
+            height: var(--size);
+            border-radius: 9999px;
+            background: radial-gradient(circle, var(--particle-color), rgba(214, 26, 26, 0.08) 65%, transparent 75%);
+            box-shadow: 0 0 18px var(--particle-color);
+            opacity: 0;
+            animation: particleFloat var(--duration) linear infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 0;
+                transform: translate3d(0, 0, 0) scale(0.6);
+            }
+            10% {
+                opacity: 0.7;
+            }
+            75% {
+                opacity: 0.45;
+            }
+            100% {
+                opacity: 0;
+                transform: translate3d(var(--drift), -120vh, 0) scale(1.15);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .particle {
+                animation: none;
+                opacity: 0.25;
+            }
+        }
     </style>
 </head>
-<body class="bg-deepBlack text-gray-100 font-sans antialiased min-h-screen selection:bg-kumushaRed selection:text-white">
+<body class="bg-deepBlack text-gray-100 font-sans antialiased min-h-screen overflow-x-hidden selection:bg-kumushaRed selection:text-white">
+
+    <!-- Moving background particles -->
+    <div id="particle-field" aria-hidden="true"></div>
 
     <!-- NAVIGATION BAR -->
     <header class="sticky top-0 z-50 bg-deepBlack/95 backdrop-blur-md border-b border-accentGray">
@@ -202,7 +315,7 @@
                 <!-- Brand Identity with Official Logo -->
                 <div class="flex items-center space-x-3 cursor-pointer group" onclick="navigateTo('home')">
                     <div class="relative w-14 h-14 transform group-hover:scale-110 transition-transform duration-300">
-                        <img src="images/Approved%20logo.jpeg" alt="Kumusha Soccer Academy Official Logo" class="w-full h-full object-contain drop-shadow-lg">
+                        <img src="images/Approved%20logo.jpeg" alt="Kumusha Football Academy Official Logo" class="w-full h-full object-contain drop-shadow-lg">
                     </div>
                     <div class="hidden sm:block">
                         <p class="text-[8px] uppercase tracking-[0.15em] text-gray-400">Elite Youth Development</p>
@@ -233,18 +346,23 @@
         </div>
         
         <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-cardGray border-b border-accentGray py-4 px-6 space-y-4">
-            <a href="#home" onclick="navigateTo('home')" class="block text-gray-100 font-semibold uppercase tracking-wider py-1 hover:text-kumushaRed">Home Portal</a>
-            <a href="#blog" onclick="navigateTo('blog')" class="block text-gray-100 font-semibold uppercase tracking-wider py-1 hover:text-kumushaRed">Jersey Collection</a>
-            <a href="#coach" onclick="navigateTo('coach')" class="block text-gray-100 font-semibold uppercase tracking-wider py-1 hover:text-kumushaRed">Meet the Coach</a>
-            <a href="#history" onclick="navigateTo('history')" class="block text-gray-100 font-semibold uppercase tracking-wider py-1 hover:text-kumushaRed">Our History</a>
-            <a href="#moments" onclick="navigateTo('moments')" class="block text-gray-100 font-semibold uppercase tracking-wider py-1 hover:text-kumushaRed">Moments</a>
-            <a href="#about" onclick="navigateTo('about')" class="block text-gray-100 font-semibold uppercase tracking-wider py-1 hover:text-kumushaRed">Details & Schedule</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-cardGray/95 backdrop-blur-md border-b border-accentGray py-4 px-4">
+            <div class="grid grid-cols-2 gap-3">
+                <a href="#home" onclick="navigateTo('home')" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">Home</a>
+                <a href="#blog" onclick="navigateTo('blog')" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">Jerseys</a>
+                <a href="#history" onclick="navigateTo('history')" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">History</a>
+                <a href="#about" onclick="navigateTo('about')" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">Details</a>
+                <a href="#moments" onclick="navigateTo('moments')" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">Moments</a>
+                <a href="#coach" onclick="navigateTo('coach')" class="block rounded-xl bg-accentGray/40 px-4 py-3 text-center text-gray-100 font-semibold uppercase tracking-wider text-xs hover:bg-kumushaRed hover:text-white">Coach</a>
+            </div>
+            <button onclick="navigateTo('register')" class="shimmer-btn mt-4 w-full bg-kumushaRed hover:bg-kumushaDark text-white px-4 py-3 rounded-xl font-athletic font-bold text-xs tracking-wider uppercase shadow-md shadow-kumushaRed/20">
+                Register Now
+            </button>
         </div>
     </header>
 
     <!-- MAIN APP WRAPPER -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         <!-- ALERT NOTIFICATION BANNER (Replaces intrusive alerts) -->
         <div id="custom-notification" class="hidden fixed bottom-6 right-6 z-50 max-w-sm bg-cardGray border-l-4 border-kumushaRed text-white p-4 rounded shadow-2xl flex items-start space-x-3 transform translate-y-10 opacity-0 transition-all duration-300">
@@ -300,11 +418,11 @@
                         </div>
 
                         <div class="reveal-left reveal flex flex-col sm:flex-row gap-4 pt-6">
-                            <button onclick="navigateTo('register')" class="shimmer-btn bg-kumushaRed hover:bg-kumushaDark text-white px-8 py-4 rounded-xl font-athletic font-bold text-sm tracking-wider uppercase flex items-center justify-center space-x-3 transition-transform transform hover:-translate-y-1 shadow-lg shadow-kumushaRed/20">
+                            <button onclick="navigateTo('register')" class="shimmer-btn w-full sm:w-auto bg-kumushaRed hover:bg-kumushaDark text-white px-8 py-4 rounded-xl font-athletic font-bold text-sm tracking-wider uppercase flex items-center justify-center space-x-3 transition-transform transform hover:-translate-y-1 shadow-lg shadow-kumushaRed/20">
                                 <span>Get Registered Now</span>
                                 <i class="fa-solid fa-arrow-right"></i>
                             </button>
-                            <button onclick="navigateTo('blog')" class="bg-accentGray hover:bg-zinc-800 text-white px-8 py-4 rounded-xl font-athletic font-bold text-sm tracking-wider uppercase border border-zinc-700 hover:border-zinc-500 transition-colors">
+                            <button onclick="navigateTo('blog')" class="w-full sm:w-auto bg-accentGray hover:bg-zinc-800 text-white px-8 py-4 rounded-xl font-athletic font-bold text-sm tracking-wider uppercase border border-zinc-700 hover:border-zinc-500 transition-colors">
                                 View Jersey Collection
                             </button>
                         </div>
@@ -314,7 +432,7 @@
                     <div class="lg:col-span-5 relative flex justify-center reveal-right reveal" style="transition-delay: 150ms;">
                         <div class="relative w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl hover-lift group cursor-pointer">
                             <div class="absolute inset-0 bg-gradient-to-br from-kumushaRed/20 to-transparent z-10 group-hover:from-kumushaRed/40 transition-all duration-300"></div>
-                            <img src="images/kfa.png" alt="Kumusha Soccer Academy Official Flyer - Developing Champions On and Off The Pitch" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+                            <img src="images/kfa.png" alt="Kumusha Football Academy Official Flyer - Developing Champions On and Off The Pitch" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
                             <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-deepBlack via-deepBlack/80 to-transparent p-4 z-20">
                                 <p class="text-xs text-gray-300 font-bold uppercase tracking-widest">Official Academy Promotional Flyer</p>
                                 <p class="text-white text-sm font-athletic font-bold mt-1">2026 Season Launch</p>
@@ -354,20 +472,20 @@
                    <div>
                        <span class="text-kumushaRed text-xs font-bold uppercase tracking-widest">MEET THE COACH</span>
                        <h2 class="font-athletic font-black text-3xl sm:text-4xl uppercase text-white mt-1">SHINGI KAWONDERA</h2>
-                       <p class="text-gray-400 text-sm mt-1">Founder and Head Coach of Kumusha Soccer Academy</p>
+                       <p class="text-gray-400 text-sm mt-1">Founder and Head Coach of Kumusha Football Academy</p>
                    </div>
                </div>
                
                 <!-- Coach Gallery Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="coach-gallery-grid">
-                    <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
-                        <img src="images/kawondera 1.jpeg" alt="Coach Shingi Kawondera" class="w-full h-full object-cover">
+                    <div class="relative h-64 bg-zinc-950 overflow-hidden rounded-xl shadow-2xl">
+                        <img src="images/kawondera 1.jpeg" alt="Coach Shingi Kawondera" class="w-full h-full object-contain p-3">
                     </div>
-                    <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
-                        <img src="images/kawondera 2.jpeg" alt="Coach Shingi Kawondera" class="w-full h-full object-cover">
+                    <div class="relative h-64 bg-zinc-950 overflow-hidden rounded-xl shadow-2xl">
+                        <img src="images/kawondera 2.jpeg" alt="Coach Shingi Kawondera" class="w-full h-full object-contain p-3">
                     </div>
-                    <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
-                        <img src="images/kawondera3.jpeg" alt="Coach Shingi Kawondera" class="w-full h-full object-cover">
+                    <div class="relative h-64 bg-zinc-950 overflow-hidden rounded-xl shadow-2xl">
+                        <img src="images/kawondera3.jpeg" alt="Coach Shingi Kawondera" class="w-full h-full object-contain p-3">
                     </div>
                 </div>
            </section>
@@ -377,32 +495,85 @@
               <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-accentGray reveal">
                   <div>
                       <span class="text-kumushaRed text-xs font-bold uppercase tracking-widest">OUR STORY</span>
-                      <h2 class="font-athletic font-black text-3xl sm:text-4xl uppercase text-white mt-1">THE KUMUSHA STORY</h2>
-                      <p class="text-gray-400 text-sm mt-1">Founded by Lonestar and Ruvimbo Makoni</p>
+                      <h2 class="font-athletic font-black text-3xl sm:text-4xl uppercase text-white mt-1">OUR HISTORY</h2>
+                      <p class="text-gray-400 text-sm mt-1">Developing Champions On and Off the Pitch</p>
                   </div>
               </div>
-              
+
               <!-- History Content -->
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <!-- History text content -->
-                  <div class="space-y-6">
-                      <h3 class="font-athletic font-black text-xl text-white uppercase tracking-wider">Our Founding Vision</h3>
-                      <p class="text-gray-300 leading-relaxed">
-                          Kumusha Soccer Academy was founded by Lonestar and Ruvimbo Makoni with a vision to provide elite soccer training to Zimbabwean youth. Their passion for the sport and commitment to community development led to the creation of this academy, which now stands as a beacon of hope for aspiring young athletes.
-                      </p>
-                      <p class="text-gray-300 leading-relaxed">
-                          Lonestar and Ruvimbo are also the proud owners of Breaking Barriers Disability Services and Valt Hair & Beauty Salon. Through these ventures, they have built a legacy of empowerment and excellence in the community, using the academy as a platform to nurture talent and transform lives through sport.
-                      </p>
-                      <h3 class="font-athletic font-black text-xl text-white uppercase tracking-wider mt-6">Breaking Barriers & Valt</h3>
-                      <p class="text-gray-300 leading-relaxed">
-                          Breaking Barriers Disability Services, owned by Lonestar and Ruvimbo Makoni, provides essential support and inclusion for differently-abled members of our community. Valt Hair & Beauty Salon is their flagship enterprise that funds many academy initiatives. Together, these businesses embody the same spirit of resilience and creativity that drives Kumusha Soccer Academy.
-                      </p>
+              <div class="space-y-10">
+                  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                      <div class="lg:col-span-2 space-y-6">
+                          <p class="text-gray-300 leading-relaxed">
+                              <strong class="text-white">Kumusha Football Academy</strong> was founded with a shared vision of transforming young football talent into disciplined, confident, and successful individuals both on and off the field. The academy was established by three passionate football development advocates: <strong class="text-white">Lonestar Makoni</strong>, <strong class="text-white">Shingi Kawondera</strong>, and <strong class="text-white">Samuel Jimah</strong>.
+                          </p>
+                          <p class="text-gray-300 leading-relaxed">
+                              Recognizing the immense talent within local communities and the limited opportunities available to many young players, the founders came together to create an academy that would provide professional football training, mentorship, and character development. Their goal was to build an environment where young athletes could develop their skills while embracing values such as discipline, determination, teamwork, respect, and excellence.
+                          </p>
+                          <p class="text-gray-300 leading-relaxed">
+                              Since its inception, Kumusha Football Academy has focused on nurturing players between the ages of 8 and 18 through structured coaching programs inspired by professional African and European training methodologies. The academy is committed to exposing players to higher levels of competition through local tournaments, talent identification programs, and opportunities for African and European football tours.
+                          </p>
+                          <p class="text-gray-300 leading-relaxed">
+                              Under the leadership of its founders, Kumusha Football Academy has grown into a community-centered institution dedicated to developing future football stars while also preparing young people to become responsible citizens and leaders in society.
+                          </p>
+                          <p class="text-gray-300 leading-relaxed">
+                              Today, the academy continues to inspire and empower the next generation of footballers through quality coaching, mentorship, and a commitment to professional standards.
+                          </p>
+
+                          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+                              <div class="bg-accentGray/60 border border-accentGray rounded-2xl p-5 hover-lift">
+                                  <h3 class="font-athletic font-black text-sm text-white uppercase tracking-wider mb-2">Our Mission</h3>
+                                  <p class="text-gray-300 text-sm leading-relaxed">To nurture football talent, develop life skills, and create opportunities for young athletes through professional coaching, discipline, and character building.</p>
+                              </div>
+                              <div class="bg-accentGray/60 border border-accentGray rounded-2xl p-5 hover-lift" style="transition-delay: 100ms;">
+                                  <h3 class="font-athletic font-black text-sm text-white uppercase tracking-wider mb-2">Our Vision</h3>
+                                  <p class="text-gray-300 text-sm leading-relaxed">To become one of Zimbabwe's leading football academies, producing talented, disciplined, and globally competitive footballers who excel both on and off the pitch.</p>
+                              </div>
+                              <div class="bg-accentGray/60 border border-accentGray rounded-2xl p-5 hover-lift" style="transition-delay: 200ms;">
+                                  <h3 class="font-athletic font-black text-sm text-white uppercase tracking-wider mb-2">Motto</h3>
+                                  <p class="text-gray-300 text-sm leading-relaxed">"Developing Champions On and Off the Pitch."</p>
+                              </div>
+                          </div>
+                      </div>
+
+                      <!-- Shingi Kawondera featured image -->
+                      <div class="relative h-80 sm:h-[32rem] bg-zinc-950 overflow-hidden rounded-3xl shadow-2xl border border-accentGray">
+                          <img src="images/kawondera3.jpeg" alt="Shingi Kawondera, Co-Founder and Head Coach" class="w-full h-full object-contain p-4">
+                          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-deepBlack via-deepBlack/90 to-transparent p-5">
+                              <p class="text-kumushaRed text-xs font-bold uppercase tracking-widest">Co-Founder & Head Coach</p>
+                              <p class="text-white font-athletic font-black text-xl mt-1">Shingi Kawondera</p>
+                          </div>
+                      </div>
                   </div>
-                  
-                  <!-- History image -->
-                  <div class="hidden md:block">
-                      <div class="relative h-96 bg-zinc-900 overflow-hidden rounded-2xl shadow-2xl">
-                          <img src="images/ball.jpg" alt="Kumusha Academy history" class="w-full h-full object-cover">
+
+                  <!-- Founders -->
+                  <div>
+                      <h3 class="font-athletic font-black text-2xl text-white uppercase tracking-wider mb-6">Our Founders</h3>
+                      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                          <div class="bg-cardGray border border-accentGray rounded-2xl p-6 hover-lift">
+                              <div class="relative h-44 sm:h-48 bg-zinc-950 rounded-xl overflow-hidden mb-4">
+                                  <img src="images/lonestar-makoni.png" alt="Lonestar Makoni" class="w-full h-full object-contain p-3">
+                              </div>
+                              <h4 class="font-athletic font-black text-lg text-white uppercase tracking-wider">Lonestar Makoni</h4>
+                              <p class="text-kumushaRed text-sm font-bold mt-1">Co-Founder</p>
+                              <p class="text-gray-300 text-sm leading-relaxed mt-3">A passionate advocate for youth development and football excellence, Lonestar Makoni plays a key role in shaping the academy's strategic direction and growth.</p>
+                          </div>
+                          <div class="bg-cardGray border border-accentGray rounded-2xl p-6 hover-lift">
+                              <div class="relative h-44 sm:h-48 bg-zinc-950 rounded-xl overflow-hidden mb-4">
+                                  <img src="images/kawondera.jpg" alt="Shingi Kawondera" class="w-full h-full object-contain p-3">
+                              </div>
+                              <h4 class="font-athletic font-black text-lg text-white uppercase tracking-wider">Shingi Kawondera</h4>
+                              <p class="text-kumushaRed text-sm font-bold mt-1">Co-Founder & Head Coach</p>
+                              <p class="text-gray-300 text-sm leading-relaxed mt-3">With extensive football experience and a strong commitment to player development, Shingi Kawondera leads the academy's technical programs and training philosophy.</p>
+                          </div>
+                          <div class="bg-cardGray border border-accentGray rounded-2xl p-6 hover-lift">
+                              <div class="relative h-44 sm:h-48 bg-zinc-950 rounded-xl overflow-hidden mb-4">
+                                  <img src="images/sam j.jpg" alt="Samuel Jimah" class="w-full h-full object-contain p-3">
+                              </div>
+                              <h4 class="font-athletic font-black text-lg text-white uppercase tracking-wider">Samuel Jimah</h4>
+                              <p class="text-kumushaRed text-sm font-bold mt-1">Co-Founder</p>
+                              <p class="text-gray-300 text-sm leading-relaxed mt-3">Samuel Jimah brings valuable leadership and community engagement expertise, helping to create opportunities that support the academy's vision of nurturing future champions.</p>
+                          </div>
                       </div>
                   </div>
               </div>
@@ -426,14 +597,14 @@
                   <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
                       <img src="images/shooters.avif" alt="Academy moments - shooters" class="w-full h-full object-cover">
                   </div>
-                  <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
-                      <img src="images/kawondera 1.jpeg" alt="Academy moments - coach" class="w-full h-full object-cover">
+                  <div class="relative h-64 bg-zinc-950 overflow-hidden rounded-xl shadow-2xl">
+                      <img src="images/kawondera 1.jpeg" alt="Academy moments - coach" class="w-full h-full object-contain p-3">
                   </div>
-                  <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
-                      <img src="images/kawondera 2.jpeg" alt="Academy moments - coach action" class="w-full h-full object-cover">
+                  <div class="relative h-64 bg-zinc-950 overflow-hidden rounded-xl shadow-2xl">
+                      <img src="images/kawondera 2.jpeg" alt="Academy moments - coach action" class="w-full h-full object-contain p-3">
                   </div>
-                  <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
-                      <img src="images/kawondera3.jpeg" alt="Academy moments - training" class="w-full h-full object-cover">
+                  <div class="relative h-64 bg-zinc-950 overflow-hidden rounded-xl shadow-2xl">
+                      <img src="images/kawondera3.jpeg" alt="Academy moments - training" class="w-full h-full object-contain p-3">
                   </div>
                   <div class="relative h-64 bg-zinc-900 overflow-hidden rounded-xl shadow-2xl">
                       <img src="images/jersy.png" alt="Academy moments - match day" class="w-full h-full object-cover">
@@ -544,7 +715,7 @@
                             <div class="flex items-start">
                                 <input type="checkbox" id="consent_terms" class="mt-1 accent-kumushaRed rounded">
                                 <label for="consent_terms" class="ml-3 text-xs text-gray-400 leading-normal">
-                                    I consent to having my child participate in physical fitness evaluations, field sessions at Alex Sports Club, and academic tour screenings held by coaches representing Kumusha Soccer Academy.
+                                    I consent to having my child participate in physical fitness evaluations, field sessions at Alex Sports Club, and academic tour screenings held by coaches representing Kumusha Football Academy.
                                 </label>
                             </div>
                         </div>
@@ -624,7 +795,7 @@
                             Next Stage <i class="fa-solid fa-arrow-right ml-2"></i>
                         </button>
 
-                        <button type="submit" id="submit-reg-btn" class="hidden px-8 py-3 bg-gradient-to-r from-kumushaRed to-red-600 hover:from-kumushaDark hover:to-kumushaRed text-white rounded-xl font-athletic font-black text-xs tracking-widest uppercase transition-all hover-lift">
+                        <button type="submit" id="submit-reg-btn" class="hidden px-8 py-3 bg-gradient-to-r from-kumushaRed to-red-600 hover:from-kumushaDark hover:to-kumushaRed disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-xl font-athletic font-black text-xs tracking-widest uppercase transition-all hover-lift">
                             Complete Roster Join <i class="fa-solid fa-circle-check ml-2"></i>
                         </button>
                     </div>
@@ -638,7 +809,7 @@
                 <!-- Promotional Flyer Display -->
                 <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-accentGray reveal-left reveal group cursor-pointer">
                     <div class="absolute inset-0 bg-gradient-to-br from-kumushaRed/20 to-transparent z-10 group-hover:from-kumushaRed/40 transition-all duration-300"></div>
-                    <img src="images/kfa.png" alt="Kumusha Soccer Academy 2026 Season Official Flyer" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    <img src="images/kfa.png" alt="Kumusha Football Academy 2026 Season Official Flyer" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
                     <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-deepBlack via-deepBlack/80 to-transparent p-4 z-20">
                         <p class="text-xs text-kumushaRed font-bold uppercase tracking-widest">Official Promotional Material</p>
                         <p class="text-white text-sm font-athletic font-bold mt-1">Share with Friends & Family</p>
@@ -651,7 +822,7 @@
                         BRINGING WORLD CLASS SPORT STANDARDS TO ZIMBABWE
                     </h2>
                     <p class="text-gray-300 leading-relaxed">
-                        Kumusha Soccer Academy represents an advanced training pathway built around the specific vision of coach Shingi Kawondera. Focused on intensive, progressive drills to refine athletic coordination, game-theory, and tactical awareness.
+                        Kumusha Football Academy represents an advanced training pathway built around the specific vision of coach Shingi Kawondera. Focused on intensive, progressive drills to refine athletic coordination, game-theory, and tactical awareness.
                     </p>
 
                     <div class="space-y-4">
@@ -768,7 +939,7 @@
 
             <div class="space-y-2">
                 <h3 class="font-athletic font-black text-xl text-white uppercase tracking-wider">Prospect Enrolled!</h3>
-                <p class="text-xs text-gray-400">Roster invitation generated. Review your verified card status below.</p>
+                <p class="text-xs text-gray-400">Registration saved to the academy database. Review your verified card status below.</p>
             </div>
 
             <!-- Visual Pass Design -->
@@ -852,6 +1023,11 @@
         // Roster Cap Config
         const MAX_SLOTS = 40;
 
+        const SUPABASE_URL = 'https://nffoxxuqyukeowfbkdaf.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable__oAqWX8l843m0dqxQKPdLQ_u2yneC2C';
+        const REGISTRATION_TABLE = 'registrations';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         // Interactive Jersey Database State Array
         const jerseyPosts = [
             {
@@ -878,6 +1054,7 @@
 
         // Active Application Form Step State
         let currentFormStep = 1;
+        let isSubmittingRegistration = false;
 
         // View Controller Function with smooth cross-fade
         function navigateTo(sectionId) {
@@ -1099,8 +1276,16 @@
         }
 
         // Form Submit Handler
-        function handleRegistrationSubmit(event) {
+        async function handleRegistrationSubmit(event) {
             event.preventDefault();
+
+            if (isSubmittingRegistration) return;
+
+            const submitBtn = document.getElementById('submit-reg-btn');
+            const originalSubmitText = submitBtn.innerHTML;
+            isSubmittingRegistration = true;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Saving Registration...';
 
             const name = document.getElementById('player_name').value.trim();
             const dob = document.getElementById('player_dob').value;
@@ -1109,8 +1294,12 @@
             const num = document.getElementById('squad_number').value || 10;
             const sizeKit = document.getElementById('jersey_size').value;
             const sizeSuit = document.getElementById('tracksuit_size').value;
+            const experience = document.getElementById('player_experience').value.trim();
+            const guardianName = document.getElementById('guardian_name').value.trim();
+            const contactPhone = document.getElementById('contact_phone').value.trim();
+            const contactEmail = document.getElementById('contact_email').value.trim();
+            const consentTerms = document.getElementById('consent_terms').checked;
 
-            // Generate squad data representation
             const newProspect = {
                 id: Date.now(),
                 name: name,
@@ -1121,6 +1310,41 @@
                 sizeSuit: sizeSuit,
                 number: parseInt(num)
             };
+
+            const registrationPayload = {
+                player_name: name,
+                player_dob: dob,
+                age_group: ageGroup,
+                position: pos,
+                experience: experience || null,
+                guardian_name: guardianName,
+                contact_phone: contactPhone,
+                contact_email: contactEmail,
+                consent_terms: consentTerms,
+                tracksuit_size: sizeSuit,
+                jersey_size: sizeKit,
+                squad_number: parseInt(num),
+                status: 'pending'
+            };
+
+            if (!window.supabase) {
+                triggerNotification("Registration database is unavailable. Please try again.");
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalSubmitText;
+                isSubmittingRegistration = false;
+                return;
+            }
+
+            const { error } = await supabase.from(REGISTRATION_TABLE).insert(registrationPayload);
+
+            if (error) {
+                console.error('Supabase registration error:', error);
+                triggerNotification("Registration could not be saved. Please try again or contact the academy.");
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalSubmitText;
+                isSubmittingRegistration = false;
+                return;
+            }
 
             // Prepend new prospect to system roster
             registeredPlayers.unshift(newProspect);
@@ -1150,6 +1374,10 @@
             currentFormStep = 1;
             wizardUpdateUI();
             updateJerseyPreview();
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalSubmitText;
+            isSubmittingRegistration = false;
         }
 
         function closeSuccessModal() {
@@ -1335,11 +1563,32 @@
             });
         }
 
+        function createBackgroundParticles() {
+            const particleField = document.getElementById('particle-field');
+            if (!particleField) return;
+
+            const particleCount = Math.min(36, Math.max(18, Math.floor(window.innerWidth / 35)));
+            particleField.innerHTML = '';
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('span');
+                particle.className = 'particle';
+                particle.style.setProperty('--size', `${Math.random() * 4 + 2}px`);
+                particle.style.setProperty('--left', `${Math.random() * 100}%`);
+                particle.style.setProperty('--drift', `${Math.random() * 180 - 90}px`);
+                particle.style.setProperty('--duration', `${Math.random() * 10 + 12}s`);
+                particle.style.setProperty('--delay', `${Math.random() * -20}s`);
+                particle.style.setProperty('--particle-color', Math.random() > 0.72 ? 'rgba(255, 255, 255, 0.65)' : 'rgba(214, 26, 26, 0.72)');
+                particleField.appendChild(particle);
+            }
+        }
+
         // Application Initialization Entry Block
         window.onload = function() {
             filterJersey('all');
             updateDashboardMetrics();
             renderRosterTable();
+            createBackgroundParticles();
             
             // Execute reveal framework observers
             setTimeout(initializeScrollReveal, 150);
